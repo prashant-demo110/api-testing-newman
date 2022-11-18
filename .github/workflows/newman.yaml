@@ -6,11 +6,29 @@ on:
     - main
 
 jobs:
-  newman:
+  newman-api-testing:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: matt-ball/newman-action@master
+      - name: Checkout Master Branch 
+        uses: actions/checkout@master
+
+      - name: Testing API Using Matt-Ball   
+        uses: matt-ball/newman-action@master
         with:
           collection: First Collection.postman_collection.json
           environment: New Environment.postman_environment.json
+
+      - name: Testing API with Iterations
+        id: run-newman
+        uses: anthonyvscode/newman-action@v1
+        with:
+          apiKey: ${{ secrets.newman17november }}
+          iterationCount: 5
+          iterationData: First Collection.postman_collection.json
+          collection: First Collection.postman_collection.json
+
+      - name: Outpute Summary
+        run: echo ${{ steps.run-newman.outputs.summary }}
+
+      - name: Outpute Summary_Full
+        run: echo ${{ steps.run-newman.outputs.summary_full }}
