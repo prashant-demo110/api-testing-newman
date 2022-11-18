@@ -23,7 +23,7 @@ jobs:
         uses: anthonyvscode/newman-action@v1
         with:
           apiKey: ${{ secrets.newman17november }}
-          iterationCount: 5
+          iterationCount: 2
           iterationData: First Collection.postman_collection.json
           collection: First Collection.postman_collection.json
 
